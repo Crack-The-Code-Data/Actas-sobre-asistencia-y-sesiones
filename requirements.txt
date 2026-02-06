@@ -1,0 +1,6 @@
+pandas
+jinja2
+xhtml2pdf
+python-dotenv
+boto3
+pyarrow
