@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <style>
+        @page {
+            size: A4;
+            margin: 4.5cm 2cm 2cm 2cm;
+
+            @frame header_frame {
+                -pdf-frame-content: headerContent;
+                top: 0.5cm;
+                left: 2cm;
+                right: 2cm;
+                height: 3.5cm;
+            }
+        }
+
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12pt;
+            line-height: 1.4;
+            color: #000000;
+        }
+
+        /* ── Header ── */
+        #headerContent {}
+
+        table.header-table {
+            width: 100%;
+            border: 1px solid #999;
+        }
+
+        table.header-table td {
+            border: 1px solid #999;
+            vertical-align: middle;
+            padding: 6px 10px;
+        }
+
+        td.header-left {
+            text-align: center;
+        }
+
+        td.header-left img {
+            height: 40px;
+        }
+
+        td.header-right {
+            text-align: center;
+            font-size: 10pt;
+            color: #555;
+        }
+
+        .convenio-bold {
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* ── Body ── */
+        .text-justify {
+            text-align: justify;
+        }
+
+        .spacer {
+            height: 10pt;
+        }
+
+        .variable {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        /* ── Data table ── */
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        table.data-table th,
+        table.data-table td {
+            border: 1px solid #000;
+            padding: 4px 8px;
+            font-size: 11pt;
+            text-align: left;
+        }
+
+        table.data-table th {
+            font-weight: bold;
+        }
+
+        /* ── Signatures ── */
+        table.sig-table {
+            width: 100%;
+            margin-top: 50px;
+        }
+
+        table.sig-table td {
+            vertical-align: top;
+            padding: 0 5px;
+            font-size: 12pt;
+        }
+
+        .sig-line {
+            width: 150px;
+            border-bottom: 1px solid #000;
+            margin-bottom: 5px;
+            height: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════ HEADER (rendered inside @frame) ═══════ -->
+    <div id="headerContent">
+        <table class="header-table">
+            <tr>
+                <td class="header-left" width="200">
+                    {% if logo_institucional %}
+                        <img src="{{logo_institucional}}" alt="Logo"/>&nbsp;
+                    {% endif %}
+                    <img src="{{logo_ctc}}" alt="CTC"/>
+                </td>
+                <td class="header-right">
+                    CONSTANCIA ASISTENCIA<br/>
+                    ESTUDIANTES EN EL MARCO DEL
+                    <span class="convenio-bold">Convenio de Asociación No.</span><br/>
+                    <span class="convenio-bold">{{convenio}}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ═══════ BODY ═══════ -->
+    <p class="text-justify">
+        En el marco del citado convenio se ejecutó durante el mes de
+        <span class="variable">{{mes_ano}}</span> en la
+        <span class="variable">{{ied}}</span>
+        <span class="variable">{{sesiones_ejecutadas}}</span>
+        <b>sesiones</b> de enseñanza-aprendizaje en
+        programación y habilidades digitales de hasta
+        <span class="variable">{{cantidad_estudiantes}}</span>
+        estudiantes de los grados {{grados}}.
+    </p>
+
+    <p>
+        Las sesiones de los {{cantidad_salones}} grupos a cargo del docente
+        {{nombre_docente}} arrojaron el siguiente balance:
+    </p>
+
+    <!-- ═══════ TABLE ═══════ -->
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Programadas</th>
+                <th>Ejecutadas</th>
+                <th>Porcentaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Sesiones</td>
+                <td>{{sesiones_programadas}}</td>
+                <td>{{sesiones_ejecutadas}}</td>
+                <td>{{sesiones_dictadas}}</td>
+            </tr>
+            <tr>
+                <td>Asistencia docente IE</td>
+                <td>{{sesiones_programadas}}</td>
+                <td>{{sesiones_asistidas}}</td>
+                <td>{{porcentaje_asistencia}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="spacer"></div>
+
+    <p class="text-justify">
+        Como respaldo de esta constancia se encuentra en medio electrónico en formato de
+        Excel (<b>Descargado del <u>backoffice</u></b>) documentado en el expediente contractual.
+    </p>
+
+    <div class="spacer"></div>
+
+    <p>
+        Para constancia de lo anterior firma los abajo identificados, el {{dia_mes_ano}}
+    </p>
+
+    <!-- ═══════ SIGNATURES ═══════ -->
+    <table class="sig-table">
+        <tr>
+            <td width="50%">
+                <div class="sig-line"></div>
+                Nombre Docente: {{nombre_docente}}<br/>
+                CC Docente: {{cc_docente}}
+            </td>
+            <td width="50%">
+                <div class="sig-line"></div>
+                Nombre equipo CTC: {{nombre_equipo_ctc}}
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
